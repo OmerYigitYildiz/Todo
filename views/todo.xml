@@ -1,0 +1,83 @@
+<odoo>
+
+    <!-- Error Logs Tree View -->
+    <record id="view_todo_tree" model="ir.ui.view">
+        <field name="name">todo.tree</field>
+        <field name="model">to.do</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="stacktrace"/>
+                <field name="is_ok"/>
+                <field name="create_uid" widget="many2one_avatar_user"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Animal Form View -->
+    <record id="view_todo_form" model="ir.ui.view">
+        <field name="name">todo.form</field>
+        <field name="model">to.do</field>
+        <field name="arch" type="xml">
+            <form string="To Do">
+                <sheet>
+                    <group id="main">
+                        <group id="left">
+                            <field name="is_ok"/>
+                        </group>
+                        <group id="right">
+                        </group>
+                        <field name="stacktrace" colspan="2" placeholder="To Do..."/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field
+                            name="message_ids"
+                            widget="mail_thread"
+                            options="{'post_refresh': 'recipients'}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search for error -->
+    <record id="view_todo_search" model="ir.ui.view">
+        <field name="name">todo.search</field>
+        <field name="model">to.do</field>
+        <field name="arch" type="xml">
+            <search string="To Do">
+                <field
+                        name="stacktrace"
+                        filter_domain="[('name', 'ilike', self)]"
+                        string="Name"
+                />
+                <field name="is_ok"/>
+                <separator/>
+                <filter
+                        string="Is Ok"
+                        domain="[('is_ok', '=', 'is_ok')]"
+                        name="Is OK"
+                />
+                <filter
+                        string="Isn't Ok"
+                        domain="[('is_ok', '=', False)]"
+                        name="Isn't OK"
+                />
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_todo" model="ir.actions.act_window">
+        <field name="name">To Do</field>
+        <field name="res_model">to.do</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_todo_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create an Todo</p>
+        </field>
+    </record>
+
+</odoo>

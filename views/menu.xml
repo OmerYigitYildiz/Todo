@@ -1,0 +1,25 @@
+<odoo>
+    <!-- Main Menu -->
+    <menuitem
+            id="menu_root"
+            name="ToDo"
+            action="action_todo"
+            sequence="10"
+            web_icon="static/description/icon.png"
+    />
+    <menuitem
+            id="menu_todo"
+            name="ToDo"
+            action="action_todo"
+            sequence="10"
+            parent="menu_root"
+    />
+    <menuitem
+            id="menu_configuration"
+            name="Configuration"
+            sequence="10"
+            parent="menu_root"
+
+    />
+
+</odoo>
